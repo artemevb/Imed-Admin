@@ -1,11 +1,11 @@
 import Image from "next/image"
-import close from "@/public/svg/close-gray.svg"
+import close from "@/public/svg/close-red.svg"
 import uzi from "@/public/images/equipments/uzi.png"
 
 export default function CreatedListItem({item}) {
   return (
     <button className="w-full px-2 py-2 border border-neutral-300 rounded-lg bg-white relative flex gap-2">
-        <div className="h-full w-auto border border-neutral-300 bg-white rounded-lg">
+        <div className="h-full w-auto border border-neutral-300 bg-white ">
             <Image
             src={uzi}
             width={100}
@@ -16,8 +16,8 @@ export default function CreatedListItem({item}) {
         </div>
         <div className="h-full flex flex-col items-start justify-center">
             <p className="">{item.name}</p>
-            <p className="text-sm text-greentxt">
-                click to edit
+            <p className="text-sm text-[#E31E24]">
+                редактировать
             </p>
         </div>
         <button className="absolute top-2 right-2">
@@ -26,7 +26,7 @@ export default function CreatedListItem({item}) {
             width={50}
             height={50}
             alt="Close Icon Gray"
-            className="w-3 h-3"
+            className="w-6 h-6"
             />
         </button>
     </button>

@@ -8,7 +8,7 @@ export default function ProductsMain({ setProductModal }) {
   const [emptyProduct, setEmptyProduct] = useState({
     id: idCount,
     name: "Заголовок",
-    tag: ["Новинка"],
+    tag: ["new"],
     description: "Полное описание продукта",
     shortDescription: "Короткое описание",
     discount: null,

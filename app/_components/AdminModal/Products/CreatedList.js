@@ -1,5 +1,5 @@
 import Image from "next/image"
-import arrowLeft from '@/public/svg/arrow-left-green.svg'
+import arrowLeft from '@/public/svg/arrow-left-red.svg'
 import CreatedListItem from "./CreatedListItem"
 
 

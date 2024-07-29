@@ -1,9 +1,9 @@
-"use client";
-import { useState } from "react";
-import Image from "next/image";
-import VerticalCarousel from "./VerticalCarousel";
-import ProductInfo from "./Modal/ProductInfo";
-import ProductCharacteristics from "./ProductCharacteristics";
+import { useState } from 'react';
+import Image from 'next/image';
+import VerticalCarousel from './VerticalCarousel';
+import ProductInfo from './Modal/ProductInfo';
+import ProductCharacteristics from './ProductCharacteristics';
+import ReviewModal from './Modal/Recenzia'; // Import the ReviewModal component
 
 const formatNumber = (number) => {
   return new Intl.NumberFormat('ru-RU').format(Math.round(number));
@@ -17,6 +17,7 @@ export default function ProductPreview({
   updateCreatedList, // Receive the update function here
 }) {
   const [modal, setModal] = useState(false);
+  const [reviewModal, setReviewModal] = useState(false); // State for review modal
 
   const handleEditClick = () => {
     setModal(true);
@@ -24,6 +25,14 @@ export default function ProductPreview({
 
   const handleCloseModal = () => {
     setModal(false);
+  };
+
+  const handleOpenReviewModal = () => {
+    setReviewModal(true);
+  };
+
+  const handleCloseReviewModal = () => {
+    setReviewModal(false);
   };
 
   return (
@@ -37,6 +46,9 @@ export default function ProductPreview({
             updateCreatedList={updateCreatedList} // Pass the update function here
           />
         )}
+        {reviewModal && (
+          <ReviewModal closeModal={handleCloseReviewModal} />
+        )}
         <div className="flex-1 w-full">
           <VerticalCarousel
             gallery={productGallery}
@@ -46,16 +58,16 @@ export default function ProductPreview({
         <div className="w-full flex-1 flex flex-col gap-5">
           <div className="flex gap-4 max-lg:hidden">
             <h1 className="text-3xl font-semibold">{emptyProduct.name}</h1>
-            {emptyProduct.tag.includes("New") && (
+            {emptyProduct.tag.includes('New') && (
               <div className="py-2 px-5 font-bold rounded-full text-greenView bg-greenCategory">
-                New
+                Новинка
               </div>
             )}
           </div>
           <p className="text-neutral-400 leading-5">
             {emptyProduct.shortDescription}
           </p>
-          {emptyProduct.tag.includes("Promotion") ? (
+          {emptyProduct.tag.includes('Promotion') ? (
             <div className="flex items-start gap-6 text-lg">
               <div className="flex flex-col">
                 <span className="text-greenView font-bold text-3xl ">
@@ -102,7 +114,20 @@ export default function ProductPreview({
         </div>
       </div>
       <div className="mt-0">
-        <ProductCharacteristics emptyProduct={emptyProduct} setEmptyProduct={setEmptyProduct} />
+        <ProductCharacteristics
+          emptyProduct={emptyProduct}
+          setEmptyProduct={setEmptyProduct}
+        />
+      </div>
+
+      <div className="mt-9">
+        <p className="text-3xl font-semibold leading-5 uppercase">Рецензии от врачей</p>
+        <button
+          className="px-20 py-4 text-sm font-semibold text-white bg-[#E94B50] mt-4"
+          onClick={handleOpenReviewModal} // Open the review modal
+        >
+          Написать рецензию
+        </button>
       </div>
     </div>
   );
