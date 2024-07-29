@@ -93,10 +93,10 @@ export default function ProductPreview({
           </div>
           <div className="flex gap-4">
             <button
-              className="px-24 py-4 text-sm font-semibold text-white rounded-xl bg-greenView"
+              className="px-24 py-4 text-sm font-semibold text-white bg-[#E94B50]"
               onClick={handleEditClick}
             >
-              Edit
+              Редактировать
             </button>
           </div>
         </div>

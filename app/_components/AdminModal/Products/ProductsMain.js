@@ -7,13 +7,13 @@ export default function ProductsMain({ setProductModal }) {
   const [idCount, setIdCount] = useState(1);
   const [emptyProduct, setEmptyProduct] = useState({
     id: idCount,
-    name: "Title",
-    tag: ["new"],
-    description: "Full product description",
-    shortDescription: "Short description",
+    name: "Заголовок",
+    tag: ["Новинка"],
+    description: "Полное описание продукта",
+    shortDescription: "Короткое описание",
     discount: null,
     originalPrice: null,
-    conditions: "Technical support",
+    conditions: "Гарантия от производителя Техническая поддержка",
     brand: {
       id: 0,
       title: "",
@@ -26,8 +26,8 @@ export default function ProductsMain({ setProductModal }) {
     },
     characteristics: [
       {
-        parameterName: "Parameter Name",
-        description: ["Parameter desc1", "Parameter desc2", "Parameter desc3"],
+        parameterName: "Имя параметра",
+        description: ["Описание параметра1", "Описание параметра2", "Описание параметра3"],
       },
     ],
   });

@@ -8,7 +8,7 @@ export default function CreatedList( {createdList, setProductModal} ) {
     <div className='w-[500px] h-full relative flex flex-col'>
       <div className='h-screen w-[380px] fixed inset-0 bg-snowy flex flex-col justify-between overflow-y-scroll no-scrollbar' >
         <div className='flex flex-col w-full py-6 px-3 gap-6'>
-          <button onClick={()=> setProductModal(false)} className='text-greenView flex gap-2 hover:gap-3 transition-all duration-200 text-lg font-semibold items-center'>
+          <button onClick={()=> setProductModal(false)} className='text-[#E94B50] flex gap-2 hover:gap-3 transition-all duration-200 text-lg font-semibold items-center'>
             <Image
             src={arrowLeft}
             width={100}
@@ -29,17 +29,13 @@ export default function CreatedList( {createdList, setProductModal} ) {
           </div>
         </div>
         <div className='w-full bg-white flex px-6 py-4 items-center justify-between gap-2'>
-          <button className='py-3 flex items-center px-4 border rounded-xl text-greenView'>
+          <button className='py-3 flex items-center px-4 border border-[#E94B50] text-[#E94B50]'>
             <p className='flex items-center gap-2'>
-            Add product 
-              <span className='text-2xl'>
-            +
-
-              </span>
+            Добавить товар
             </p>
           </button>
-          <button className='py-3 flex items-center px-12 border rounded-xl text-white bg-greenView'>
-            Save
+          <button className='py-3 flex items-center px-10 border text-white bg-[#E94B50]'>
+            Сохранить
           </button>
         </div>
       </div>

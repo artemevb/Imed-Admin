@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useEffect } from "react";
 
@@ -72,15 +73,19 @@ export default function ProductInfo({
   };
 
   return (
-    <div className="fixed inset-0 z-[10000] flex justify-center items-center bg-modalBg">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] lg:w-[60%]">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-semibold">Product Info</h2>
-          <button onClick={closeModal}>Close</button>
+    <div className="fixed inset-0 z-[10000] flex justify-center items-center bg-modalBg overflow-y-auto overflow-hidden">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] lg:w-[60%] max-h-[100vh] overflow-y-auto overflow-hidden">
+        <div className="flex justify-between items-center mb-6 top-0 bg-white z-10">
+          <h2 className="text-2xl font-semibold">Информация о товаре</h2>
+          <button onClick={closeModal} >
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+              <path d="M12.4994 9.85083L21.7806 0.56958L24.4319 3.22083L15.1506 12.5021L24.4319 21.7833L21.7788 24.4346L12.4975 15.1533L3.21814 24.4346L0.566895 21.7815L9.84815 12.5002L0.566895 3.21896L3.21814 0.571455L12.4994 9.85083Z" fill="black" />
+            </svg>
+          </button>
         </div>
         <div className="grid grid-cols-1 gap-4">
           <label>
-            Product Name
+            Название товара
             <input
               type="text"
               name="name"
@@ -90,7 +95,7 @@ export default function ProductInfo({
             />
           </label>
           <label>
-            Product Category
+            Категория
             <select
               name="category"
               value={product.category}
@@ -105,7 +110,7 @@ export default function ProductInfo({
             </select>
           </label>
           <label>
-            Product Subcategory
+            Подкатегория
             <select
               name="subcategory"
               value={product.subcategory}
@@ -120,34 +125,32 @@ export default function ProductInfo({
             </select>
           </label>
           <label>
-            Tag
+            Тег
             <div className="flex gap-2">
               <button
                 onClick={() => handleTagChange("New")}
-                className={`py-2 px-4 rounded ${
-                  product.tag.includes("New")
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200"
-                }`}
+                className={`py-2 px-4 rounded ${product.tag.includes("New")
+                  ? "bg-[#E94B50] text-white"
+                  : "bg-gray-200"
+                  }`}
               >
-                New
+                Новинка
               </button>
               <button
                 onClick={() => handleTagChange("Promotion")}
-                className={`py-2 px-4 rounded ${
-                  product.tag.includes("Promotion")
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200"
-                }`}
+                className={`py-2 px-4 rounded ${product.tag.includes("Promotion")
+                  ? "bg-[#E94B50] text-white"
+                  : "bg-gray-200"
+                  }`}
               >
-                Promotion
+                Акция
               </button>
             </div>
           </label>
           {product.tag.includes("Promotion") && (
             <>
               <label>
-                Amount of discount (%)
+                Размер скидки (%)
                 <input
                   type="number"
                   name="discount"
@@ -157,7 +160,7 @@ export default function ProductInfo({
                 />
               </label>
               <label>
-                Original price (у.е.)
+                Изначальная цена (у.е.)
                 <input
                   type="number"
                   name="originalPrice"
@@ -167,7 +170,7 @@ export default function ProductInfo({
                 />
               </label>
               <label>
-                Price with discount (у.е.)
+                Цена со скидкой (у.е.)
                 <input
                   type="text"
                   name="priceWithDiscount"
@@ -179,7 +182,7 @@ export default function ProductInfo({
             </>
           )}
           <label>
-            Brand
+            Бренд
             <select
               name="brand"
               value={product.brand.id}
@@ -202,7 +205,7 @@ export default function ProductInfo({
             </select>
           </label>
           <label>
-            Short Description
+            Короткое описание
             <textarea
               name="shortDescription"
               value={product.shortDescription}
@@ -211,7 +214,7 @@ export default function ProductInfo({
             />
           </label>
           <label>
-            Conditions
+            Условия
             <input
               type="text"
               name="conditions"
@@ -224,12 +227,13 @@ export default function ProductInfo({
         <div className="flex justify-end mt-6">
           <button
             onClick={handleSave}
-            className="py-2 px-6 bg-green-500 text-white rounded-lg"
+            className="py-2 px-14 bg-[#E94B50] text-white"
           >
-            Save
+            Готово
           </button>
         </div>
       </div>
     </div>
+
   );
 }
