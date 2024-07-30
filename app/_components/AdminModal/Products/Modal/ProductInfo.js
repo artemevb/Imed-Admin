@@ -205,7 +205,7 @@ export default function ProductInfo({
             </select>
           </label>
           <label>
-            Короткое описание
+            Описание
             <textarea
               name="shortDescription"
               value={product.shortDescription}

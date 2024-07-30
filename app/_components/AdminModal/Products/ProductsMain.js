@@ -10,7 +10,7 @@ export default function ProductsMain({ setProductModal }) {
     name: "Заголовок",
     tag: ["new"],
     description: "Полное описание продукта",
-    shortDescription: "Короткое описание",
+    shortDescription: "Описание",
     discount: null,
     originalPrice: null,
     conditions: "Гарантия от производителя Техническая поддержка",
@@ -29,6 +29,15 @@ export default function ProductsMain({ setProductModal }) {
         parameterName: "Имя параметра",
         description: ["Описание параметра1", "Описание параметра2", "Описание параметра3"],
       },
+    ],
+    clients: [
+      { name: "Vitamed Medical", checked: true },
+      { name: "Akfa Medline", checked: true },
+      { name: "ZARMED PRATIKSHA", checked: true },
+      { name: "Fergana Premium Medical", checked: true },
+      { name: "NOVO MEDICS", checked: false },
+      { name: "Meridian Diagnostic Hospital EKO", checked: false },
+      { name: "SAYDANA", checked: false },
     ],
   });
 

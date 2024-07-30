@@ -381,7 +381,7 @@ export default function List() {
               />
             </div>
           ))}
-          <button onClick={() => setProductModal(true)} className="border-green-500 border-dashed border-4 flex justify-center items-center text-8xl text-green-500 font-bold">
+          <button onClick={() => setProductModal(true)} className="border-[#E31E24] border-dashed border-4 flex justify-center items-center text-8xl text-[#E31E24] font-bold">
             +
           </button>
         </div>

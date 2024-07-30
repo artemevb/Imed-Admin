@@ -8,23 +8,25 @@ export default function ProductCharacteristics({ emptyProduct, setEmptyProduct }
   const [active, setActive] = useState('description');
   const [filtered, setFiltered] = useState(emptyProduct.description);
   const [textBlocks, setTextBlocks] = useState([{ title: '', description: emptyProduct.description }]);
+  const [showDescriptionModal, setShowDescriptionModal] = useState(false);
+  const [showCharacteristicsModal, setShowCharacteristicsModal] = useState(false);
+  const [showClientModal, setShowClientModal] = useState(false);
 
   const handleFilter = (catname) => {
     setActive(catname);
-    const filteredData = catname === 'description' ? emptyProduct.description : emptyProduct.characteristics;
+    const filteredData = catname === 'description' ? emptyProduct.description : catname === 'characteristics' ? emptyProduct.characteristics : emptyProduct.clients;
     setFiltered(filteredData);
   };
 
   const handleEditClick = () => {
     if (active === 'description') {
       setShowDescriptionModal(true);
-    } else {
+    } else if (active === 'characteristics') {
       setShowCharacteristicsModal(true);
+    } else if (active === 'client') {
+      setShowClientModal(true);
     }
   };
-
-  const [showDescriptionModal, setShowDescriptionModal] = useState(false);
-  const [showCharacteristicsModal, setShowCharacteristicsModal] = useState(false);
 
   const addNewParameter = () => {
     const newParameter = { parameterName: '', description: [''] };
@@ -85,7 +87,7 @@ export default function ProductCharacteristics({ emptyProduct, setEmptyProduct }
               Редактировать
             </button>
           </div>
-        ) : (
+        ) : active === 'characteristics' ? (
           <div className="flex flex-col items-start gap-6 w-full">
             {filtered.map((item, i) => (
               <div key={i} className="w-full flex gap-3">
@@ -99,6 +101,16 @@ export default function ProductCharacteristics({ emptyProduct, setEmptyProduct }
                 </div>
               </div>
             ))}
+            <button
+              className="px-24 py-4 text-sm font-semibold text-white bg-[#E94B50] mt-4"
+              onClick={handleEditClick}
+            >
+              Редактировать
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col items-start gap-6 w-full">
+            {/* Add content for the client section here if needed */}
             <button
               className="px-24 py-4 text-sm font-semibold text-white bg-[#E94B50] mt-4"
               onClick={handleEditClick}
@@ -272,6 +284,48 @@ export default function ProductCharacteristics({ emptyProduct, setEmptyProduct }
                   setShowCharacteristicsModal(false);
                   setFiltered(emptyProduct.characteristics);
                 }}
+              >
+                Готово
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showClientModal && (
+        <div className="fixed inset-0 z-[10000] flex justify-center items-center bg-modalBg">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] lg:w-[80%] h-[90%] overflow-y-scroll no-scrollbar">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-semibold">Клиент</h2>
+              <button onClick={() => setShowClientModal(false)}>
+                <Image
+                  src={close}
+                  width={100}
+                  height={100}
+                  alt="Arrow Back Icon"
+                  className="w-6 h-6 "
+                /></button>
+            </div>
+            {emptyProduct.clients.map((client, index) => (
+              <div key={index} className="w-full flex flex-col items-start">
+                <label className="w-full flex items-center gap-4">
+                  <input
+                    type="checkbox"
+                    checked={client.checked}
+                    onChange={(e) => {
+                      const newClients = [...emptyProduct.clients];
+                      newClients[index].checked = e.target.checked;
+                      setEmptyProduct({ ...emptyProduct, clients: newClients });
+                    }}
+                  />
+                  <span>{client.name}</span>
+                </label>
+              </div>
+            ))}
+            <div className="flex justify-end mt-6">
+              <button
+                className="py-2 px-16 bg-[#E94B50] text-white"
+                onClick={() => setShowClientModal(false)}
               >
                 Готово
               </button>

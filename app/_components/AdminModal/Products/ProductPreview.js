@@ -59,7 +59,7 @@ export default function ProductPreview({
           <div className="flex gap-4 max-lg:hidden">
             <h1 className="text-3xl font-semibold">{emptyProduct.name}</h1>
             {emptyProduct.tag.includes('New') && (
-              <div className="py-2 px-5 font-bold rounded-full text-greenView bg-greenCategory">
+              <div className="py-2 px-5 font-bold rounded-full text-[#E31E24] bg-[#FCE8E9]">
                 Новинка
               </div>
             )}

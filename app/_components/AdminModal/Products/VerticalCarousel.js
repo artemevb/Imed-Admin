@@ -6,9 +6,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Image from "next/image";
 import imageIcon from "@/public/svg/image-icon.svg";
 
-const VerticalCarousel = ( {gallery, setGallery} ) => {
+const VerticalCarousel = ({ gallery, setGallery }) => {
   const [selectedImage, setSelectedImage] = useState(0);
-  
+
 
   const handleImageUpload = (event) => {
     const files = event.target.files;
@@ -25,14 +25,12 @@ const VerticalCarousel = ( {gallery, setGallery} ) => {
 
   return (
     <div
-      className={`flex flex-col ${
-        gallery.length == 0 ? "gap-0 px-36 h-[300px]" : "gap-8"
-      } w-full max-w-[1440px] mx-auto`}
+      className={`flex flex-col ${gallery.length == 0 ? "gap-0 px-36 h-[300px]" : "gap-8"
+        } w-full max-w-[1440px] mx-auto`}
     >
       <div
-        className={`w-full h-full  ${
-          gallery.length > 0 ? "" : "flex justify-center items-center"
-        }`}
+        className={`w-full h-full  ${gallery.length > 0 ? "" : "flex justify-center items-center"
+          }`}
       >
         {gallery.length > 0 ? (
           <Carousel
@@ -71,7 +69,7 @@ const VerticalCarousel = ( {gallery, setGallery} ) => {
             />
             <label
               htmlFor="image-upload"
-              className="cursor-pointer text-greenView rounded-3xl h-full w-full flex flex-col gap-4 justify-center items-center border-2 border-greenView border-dashed"
+              className="cursor-pointer text-[#E94B50] rounded-3xl h-full w-full flex flex-col gap-4 justify-center items-center border-2 border-[#E94B50] border-dashed text-[18px]"
             >
               <Image
                 src={imageIcon}
@@ -80,8 +78,9 @@ const VerticalCarousel = ( {gallery, setGallery} ) => {
                 alt="Image Icon"
                 className="w-12 h-12 "
               />
-              <div className="px-8 py-3 rounded-xl bg-greenView text-white">
-                Browse your file
+              Перетащите фото
+              <div className="px-8 py-3 bg-[#E94B50] text-white">
+                Выбрать на компьютере
               </div>
             </label>
           </div>
@@ -104,37 +103,36 @@ const VerticalCarousel = ( {gallery, setGallery} ) => {
             emulateTouch={true}
             showArrows={false}
           >
-          <div className="w-full h-[80%] flex justify-center items-center">
-            <input
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-              id="image-upload"
-            />
-            <label
-              htmlFor="image-upload"
-              className="cursor-pointer text-greenView rounded-lg h-full w-full flex flex-col gap-4 justify-center items-center border-2 border-greenView border-dashed"
-            >
-              <Image
-                src={imageIcon}
-                width={500}
-                height={500}
-                alt="Image Icon"
-                className="w-12 h-12 "
+            <div className="w-full h-[80%] flex justify-center items-center">
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="hidden"
+                id="image-upload"
               />
-            </label>
-          </div>
+              <label
+                htmlFor="image-upload"
+                className="cursor-pointer text-greenView rounded-lg h-full w-full flex flex-col gap-4 justify-center items-center border-2 border-greenView border-dashed"
+              >
+                <Image
+                  src={imageIcon}
+                  width={500}
+                  height={500}
+                  alt="Image Icon"
+                  className="w-12 h-12 "
+                />
+              </label>
+            </div>
             {gallery.map((src, index) => (
               <div
                 key={index}
                 onClick={() => setSelectedImage(index)}
-                className={`cursor-pointer ml-2 relative h-[80%] rounded-xl ${
-                  selectedImage === index
+                className={`cursor-pointer ml-2 relative h-[80%] rounded-xl ${selectedImage === index
                     ? "border-2 border-greenView"
                     : "border"
-                }`}
+                  }`}
               >
                 <Image
                   src={src}
@@ -143,7 +141,7 @@ const VerticalCarousel = ( {gallery, setGallery} ) => {
                   width={100}
                   height={100}
                 />
-                                <button
+                <button
                   onClick={() => handleImageDelete(index)}
                   className="absolute top-0 right-0 bg-greenView w-6 h-6 text-sm text-white rounded-full flex justify-center items-center"
                 >
