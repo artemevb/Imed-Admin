@@ -296,7 +296,7 @@ export default function ProductCharacteristics({ emptyProduct, setEmptyProduct }
         <div className="fixed inset-0 z-[10000] flex justify-center items-center bg-modalBg">
           <div className="bg-white p-8 rounded-lg shadow-lg w-[90%] lg:w-[80%] h-[90%] overflow-y-scroll no-scrollbar">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-semibold">Клиент</h2>
+              <h2 className="text-3xl font-semibold mb-9">Клиент</h2>
               <button onClick={() => setShowClientModal(false)}>
                 <Image
                   src={close}
@@ -308,17 +308,18 @@ export default function ProductCharacteristics({ emptyProduct, setEmptyProduct }
             </div>
             {emptyProduct.clients.map((client, index) => (
               <div key={index} className="w-full flex flex-col items-start">
-                <label className="w-full flex items-center gap-4">
+                <label className="w-full flex items-center gap-4 mb-[60px]">
                   <input
                     type="checkbox"
                     checked={client.checked}
+                    className="custom-checkbox"
                     onChange={(e) => {
                       const newClients = [...emptyProduct.clients];
                       newClients[index].checked = e.target.checked;
                       setEmptyProduct({ ...emptyProduct, clients: newClients });
                     }}
                   />
-                  <span>{client.name}</span>
+                  <span className="text-[20px]">{client.name}</span>
                 </label>
               </div>
             ))}

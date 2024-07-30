@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import plus from '@/public/svg/plus.svg';
 import closeIcon from '@/public/svg/close.svg';
 import close from '@/public/svg/closeblack.svg';
 
-const Recenzia = ({ closeModal }) => {
-    const [review, setReview] = useState({
+const Recenzia = ({ closeModal, addReview, review }) => {
+    const [reviewState, setReviewState] = useState({
         name: '',
         position: '',
         conclusion: '',
@@ -14,21 +14,27 @@ const Recenzia = ({ closeModal }) => {
         textBlocks: [{ title: '', text: '' }]
     });
 
+    useEffect(() => {
+        if (review) {
+            setReviewState(review);
+        }
+    }, [review]);
+
     const handleChange = (e, index = null) => {
         const { name, value } = e.target;
         if (index === null) {
-            setReview(prevState => ({
+            setReviewState(prevState => ({
                 ...prevState,
                 [name]: value,
             }));
         } else {
-            const updatedTextBlocks = review.textBlocks.map((block, i) => {
+            const updatedTextBlocks = reviewState.textBlocks.map((block, i) => {
                 if (i === index) {
                     return { ...block, [name]: value };
                 }
                 return block;
             });
-            setReview(prevState => ({
+            setReviewState(prevState => ({
                 ...prevState,
                 textBlocks: updatedTextBlocks
             }));
@@ -37,29 +43,29 @@ const Recenzia = ({ closeModal }) => {
 
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
-        setReview(prevState => ({
+        setReviewState(prevState => ({
             ...prevState,
             photo: file,
         }));
     };
 
     const handlePhotoRemove = () => {
-        setReview(prevState => ({
+        setReviewState(prevState => ({
             ...prevState,
             photo: null,
         }));
     };
 
     const handleAddTextBlock = () => {
-        setReview(prevState => ({
+        setReviewState(prevState => ({
             ...prevState,
             textBlocks: [...prevState.textBlocks, { title: '', text: '' }]
         }));
     };
 
     const handleRemoveTextBlock = (index) => {
-        const updatedTextBlocks = review.textBlocks.filter((_, i) => i !== index);
-        setReview(prevState => ({
+        const updatedTextBlocks = reviewState.textBlocks.filter((_, i) => i !== index);
+        setReviewState(prevState => ({
             ...prevState,
             textBlocks: updatedTextBlocks
         }));
@@ -67,21 +73,7 @@ const Recenzia = ({ closeModal }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Review submitted', review);
-        // Simulate form submission or call to an API endpoint here
-        // fetch('/api/reviews', {
-        //     method: 'POST',
-        //     body: JSON.stringify(review),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }).then(response => response.json())
-        // .then(data => {
-        //     console.log('Success:', data);
-        //     closeModal();
-        // }).catch((error) => {
-        //     console.error('Error:', error);
-        // });
+        addReview(reviewState);
         closeModal();
     };
 
@@ -105,7 +97,7 @@ const Recenzia = ({ closeModal }) => {
                         <label className="block text-gray-700">ФИО врача</label>
                         <input
                             name="name"
-                            value={review.name}
+                            value={reviewState.name}
                             onChange={(e) => handleChange(e)}
                             className="w-full border px-3 py-2 rounded-lg"
                         />
@@ -114,17 +106,17 @@ const Recenzia = ({ closeModal }) => {
                         <label className="block text-gray-700">Должность врача</label>
                         <input
                             name="position"
-                            value={review.position}
+                            value={reviewState.position}
                             onChange={(e) => handleChange(e)}
                             className="w-full border px-3 py-2 rounded-lg"
                         />
                     </div>
                     <div className="mb-4">
                         <label className="block text-gray-700">Фото врача<br /><span className='text-[#BABABA] text-[15px]'>рекомендуемый размер 500х500</span></label>
-                        {review.photo ? (
+                        {reviewState.photo ? (
                             <div className="relative">
                                 <img
-                                    src={URL.createObjectURL(review.photo)}
+                                    src={URL.createObjectURL(reviewState.photo)}
                                     alt="Doctor"
                                     className="w-[115px] h-auto rounded-lg"
                                 />
@@ -152,7 +144,7 @@ const Recenzia = ({ closeModal }) => {
                         )}
                     </div>
                     <h2 className='mb-[50px] text-[24px] mt-[20px] font-semibold'>Рецензия</h2>
-                    {review.textBlocks.map((block, index) => (
+                    {reviewState.textBlocks.map((block, index) => (
                         <div key={index} className="relative mb-6">
                             <button
                                 className="absolute top-0 right-0 mt-2"

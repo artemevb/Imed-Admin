@@ -3,7 +3,9 @@ import Image from 'next/image';
 import VerticalCarousel from './VerticalCarousel';
 import ProductInfo from './Modal/ProductInfo';
 import ProductCharacteristics from './ProductCharacteristics';
+import Deletefluent from '@/public/svg/deletefluent.svg';
 import ReviewModal from './Modal/Recenzia'; // Import the ReviewModal component
+import DeleteModal from './Modal/DeleteModal'; // Import the DeleteModal component
 
 const formatNumber = (number) => {
   return new Intl.NumberFormat('ru-RU').format(Math.round(number));
@@ -18,6 +20,10 @@ export default function ProductPreview({
 }) {
   const [modal, setModal] = useState(false);
   const [reviewModal, setReviewModal] = useState(false); // State for review modal
+  const [reviews, setReviews] = useState([]); // State for storing reviews
+  const [deleteModal, setDeleteModal] = useState(false); // State for delete modal
+  const [reviewToDelete, setReviewToDelete] = useState(null); // State for the review to delete
+  const [editReview, setEditReview] = useState(null); // State for editing review
 
   const handleEditClick = () => {
     setModal(true);
@@ -27,12 +33,38 @@ export default function ProductPreview({
     setModal(false);
   };
 
-  const handleOpenReviewModal = () => {
+  const handleOpenReviewModal = (review = null) => {
+    setEditReview(review);
     setReviewModal(true);
   };
 
   const handleCloseReviewModal = () => {
+    setEditReview(null);
     setReviewModal(false);
+  };
+
+  const handleOpenDeleteModal = (index) => {
+    setReviewToDelete(index);
+    setDeleteModal(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setDeleteModal(false);
+    setReviewToDelete(null);
+  };
+
+  const handleDeleteReview = () => {
+    setReviews(prevReviews => prevReviews.filter((_, index) => index !== reviewToDelete));
+    handleCloseDeleteModal();
+  };
+
+  const addReview = (review) => {
+    if (editReview) {
+      setReviews(prevReviews => prevReviews.map(r => r === editReview ? review : r));
+    } else {
+      setReviews(prevReviews => [...prevReviews, review]);
+    }
+    handleCloseReviewModal();
   };
 
   return (
@@ -47,7 +79,14 @@ export default function ProductPreview({
           />
         )}
         {reviewModal && (
-          <ReviewModal closeModal={handleCloseReviewModal} />
+          <ReviewModal closeModal={handleCloseReviewModal} addReview={addReview} review={editReview} />
+        )}
+        {deleteModal && (
+          <DeleteModal
+            isVisible={deleteModal}
+            onClose={handleCloseDeleteModal}
+            onDelete={handleDeleteReview}
+          />
         )}
         <div className="flex-1 w-full">
           <VerticalCarousel
@@ -70,19 +109,19 @@ export default function ProductPreview({
           {emptyProduct.tag.includes('Promotion') ? (
             <div className="flex items-start gap-6 text-lg">
               <div className="flex flex-col">
-                <span className="text-greenView font-bold text-3xl ">
+                <span className="text-[#E31E24] font-bold text-3xl ">
                   {formatNumber(emptyProduct.priceWithDiscount)} ye
                 </span>
                 <span className="text-gray-500 line-through">
                   {formatNumber(emptyProduct.originalPrice)} ye
                 </span>
               </div>
-              <span className="text-greenView bg-green-100 px-4 py-1 flex items-center rounded-full font-bold">
+              <span className="text-[#E31E24] bg-green-100 px-4 py-1 flex items-center rounded-full font-bold">
                 -{emptyProduct.discount}%
               </span>
             </div>
           ) : (
-            <div className="text-lg text-green-500 font-bold">
+            <div className="text-lg text-[#E31E24] font-bold">
               {/* {formatNumber(emptyProduct.priceWithDiscount || emptyProduct.originalPrice)} ye */}
             </div>
           )}
@@ -124,10 +163,51 @@ export default function ProductPreview({
         <p className="text-3xl font-semibold leading-5 uppercase">Рецензии от врачей</p>
         <button
           className="px-20 py-4 text-sm font-semibold text-white bg-[#E94B50] mt-4"
-          onClick={handleOpenReviewModal} // Open the review modal
+          onClick={() => handleOpenReviewModal(null)}
         >
           Написать рецензию
         </button>
+        {reviews.map((review, index) => (
+          <div key={index} className="mt-4 p-4 border rounded-lg">
+            <div className="flex items-center">
+              {review.photo && (
+                <img
+                  src={URL.createObjectURL(review.photo)}
+                  alt="Doctor"
+                  className="w-16 h-16 rounded-full mr-4"
+                />
+              )}
+              <div>
+                <h4 className="text-lg font-bold">{review.name}</h4>
+                <p className="text-sm text-[#BABABA]">{review.position}</p>
+              </div>
+            </div>
+            <p className="mt-2">{review.conclusion}</p>
+            {review.textBlocks.map((block, idx) => (
+              <div key={idx} className="mt-2">
+                {block.title && <h5 className="font-semibold">{block.title}</h5>}
+                <p>{block.text}</p>
+              </div>
+            ))}
+            <div className='flex gap-4'>
+              <button
+                className='px-20 py-4 text-sm font-semibold border border-[#E94B50] text-[#E94B50] bg-white mt-4'
+                onClick={() => handleOpenReviewModal(review)}
+              >
+                Редактировать
+              </button>
+              <button className='px-3 border mt-4' onClick={() => handleOpenDeleteModal(index)}>
+                <Image
+                  src={Deletefluent}
+                  width={100}
+                  height={100}
+                  alt="Delete Icon"
+                  className="w-7 h-7 "
+                />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

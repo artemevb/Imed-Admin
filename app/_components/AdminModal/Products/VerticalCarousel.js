@@ -103,7 +103,7 @@ const VerticalCarousel = ({ gallery, setGallery }) => {
             emulateTouch={true}
             showArrows={false}
           >
-            <div className="w-full h-[80%] flex justify-center items-center">
+            <div className="w-full h-[102px] flex justify-center items-center">
               <input
                 type="file"
                 multiple
@@ -114,7 +114,7 @@ const VerticalCarousel = ({ gallery, setGallery }) => {
               />
               <label
                 htmlFor="image-upload"
-                className="cursor-pointer text-greenView rounded-lg h-full w-full flex flex-col gap-4 justify-center items-center border-2 border-greenView border-dashed"
+                className="cursor-pointer text-[#E31E24] rounded-lg h-full w-full flex flex-col gap-4 justify-center items-center border-2 border-[#E31E24] border-dashed"
               >
                 <Image
                   src={imageIcon}
@@ -129,8 +129,8 @@ const VerticalCarousel = ({ gallery, setGallery }) => {
               <div
                 key={index}
                 onClick={() => setSelectedImage(index)}
-                className={`cursor-pointer ml-2 relative h-[80%] rounded-xl ${selectedImage === index
-                    ? "border-2 border-greenView"
+                className={`cursor-pointer ml-2 relative h-[102px] rounded-xl ${selectedImage === index
+                    ? "border-2 border-[#E31E24]"
                     : "border"
                   }`}
               >
@@ -143,7 +143,7 @@ const VerticalCarousel = ({ gallery, setGallery }) => {
                 />
                 <button
                   onClick={() => handleImageDelete(index)}
-                  className="absolute top-0 right-0 bg-greenView w-6 h-6 text-sm text-white rounded-full flex justify-center items-center"
+                  className="absolute top-0 right-0 bg-[#E31E24] w-6 h-6 text-sm text-white rounded-full flex justify-center items-center"
                 >
                   х
                 </button>

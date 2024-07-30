@@ -67,3 +67,33 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+.custom-checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 25px; /* Adjust width and height to match your design */
+  height: 25px;
+  /* margin-bottom: 60px; */
+  border: 1px solid #ccc; /* Change color to match your design */
+  border-radius: 6px; /* Adjust border-radius to match your design */
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+}
+
+.custom-checkbox:checked {
+  background-color: red;
+  border-color: red;
+}
+
+.custom-checkbox:checked::after {
+  content: '✓';
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px; /* Adjust font size to match your design */
+  font-weight: bold;
+}
